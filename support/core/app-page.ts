@@ -1,6 +1,6 @@
-import { Page } from '@playwright/test';
+import { Page } from "@playwright/test";
 
-import { BasePage } from './base-page';
+import { BasePage } from "./base-page";
 /**
  * Represents a Masters application page.
  */

@@ -1,7 +1,6 @@
 {
-    "baseURL":"https://automationexercise.com/",
-    "userPasswords":{
-        "testy.automatyczne@gmail.com":"Testy.123!"
-    }
-
+  "baseURL": "https://automationexercise.com/",
+  "userPasswords": {
+    "testy.automatyczne@gmail.com": "Testy.123!"
+  }
 }

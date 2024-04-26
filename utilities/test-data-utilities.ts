@@ -19,17 +19,23 @@ export type EnvironmentTestData = {
  * whose `environmentKey` is equal to either the name of the currently active playwright project or the `defaultKey`.
  */
 
-export function getTestData<T extends EnvironmentTestData>(data: T[], key: string, defaultKey?: EnviromentKey): T {
-  const result = data.find(d => d.environmentKey === key);
+export function getTestData<T extends EnvironmentTestData>(
+  data: T[],
+  key: string,
+  defaultKey?: EnviromentKey,
+): T {
+  const result = data.find((d) => d.environmentKey === key);
   if (result) {
     return result;
   }
   if (!defaultKey) {
     defaultKey = EnviromentKey.AutomationPractise;
   }
-  const defaultResult = data.find(d => d.environmentKey === defaultKey);
+  const defaultResult = data.find((d) => d.environmentKey === defaultKey);
   if (defaultResult) {
     return defaultResult;
   }
-  throw new Error(`failed to find test data by key '${key}' (default key: '${defaultKey}')`);
+  throw new Error(
+    `failed to find test data by key '${key}' (default key: '${defaultKey}')`,
+  );
 }

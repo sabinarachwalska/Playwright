@@ -1,8 +1,8 @@
-import { test } from '@playwright/test';
+import { test } from "@playwright/test";
 
-import { BaseTestType } from './base-test-type';
-import { DecoratedTestType } from './decorated-test-type';
-import { EmptyFixture } from './empty-fixture';
+import { BaseTestType } from "./base-test-type";
+import { DecoratedTestType } from "./decorated-test-type";
+import { EmptyFixture } from "./empty-fixture";
 
 /**
  * Represents a lazily extendable instance of a playwright test type.
@@ -15,10 +15,18 @@ export abstract class TestTypeBuilder<TTestType extends BaseTestType> {
    * @param decorator Extension function.
    * @returns New instance of a lazily extended playwright test type.
    */
-  public extend<TTestArgs extends EmptyFixture, TWorkerArgs extends EmptyFixture = {}>(
-    decorator: (base: TTestType) => DecoratedTestType<TTestType, TTestArgs, TWorkerArgs>
+  public extend<
+    TTestArgs extends EmptyFixture,
+    TWorkerArgs extends EmptyFixture = {},
+  >(
+    decorator: (
+      base: TTestType,
+    ) => DecoratedTestType<TTestType, TTestArgs, TWorkerArgs>,
   ): TestTypeBuilder<DecoratedTestType<TTestType, TTestArgs, TWorkerArgs>> {
-    return new DecoratedTestTypeBuilder<TTestType, TTestArgs, TWorkerArgs>(this, decorator);
+    return new DecoratedTestTypeBuilder<TTestType, TTestArgs, TWorkerArgs>(
+      this,
+      decorator,
+    );
   }
 
   /**
@@ -41,11 +49,15 @@ class BaseTestTypeBuilder extends TestTypeBuilder<BaseTestType> {
 class DecoratedTestTypeBuilder<
   TBaseTestType extends BaseTestType,
   TTestArgs extends EmptyFixture,
-  TWorkerArgs extends EmptyFixture
-> extends TestTypeBuilder<DecoratedTestType<TBaseTestType, TTestArgs, TWorkerArgs>> {
+  TWorkerArgs extends EmptyFixture,
+> extends TestTypeBuilder<
+  DecoratedTestType<TBaseTestType, TTestArgs, TWorkerArgs>
+> {
   public constructor(
     private readonly _base: TestTypeBuilder<TBaseTestType>,
-    private readonly _decorator: (base: TBaseTestType) => DecoratedTestType<TBaseTestType, TTestArgs, TWorkerArgs>
+    private readonly _decorator: (
+      base: TBaseTestType,
+    ) => DecoratedTestType<TBaseTestType, TTestArgs, TWorkerArgs>,
   ) {
     super();
   }
@@ -60,4 +72,5 @@ class DecoratedTestTypeBuilder<
 /**
  * Base playwright test type instance builder.
  */
-export const testBuilder: TestTypeBuilder<BaseTestType> = new BaseTestTypeBuilder();
+export const testBuilder: TestTypeBuilder<BaseTestType> =
+  new BaseTestTypeBuilder();

@@ -1,6 +1,6 @@
-import { expect, Page } from '@playwright/test';
+import { expect, Page } from "@playwright/test";
 
-import { PageLoadOptions } from '../../utilities/page-load-options';
+import { PageLoadOptions } from "../../utilities/page-load-options";
 
 /**
  * Represents a Masters page.

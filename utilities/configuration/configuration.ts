@@ -1,6 +1,6 @@
-import * as fs from 'fs';
+import * as fs from "fs";
 
-import { UserNames } from './user-names';
+import { UserNames } from "./user-names";
 
 /**
  * Represents general configurable properties.
@@ -21,7 +21,7 @@ export type ConfigType = {
 
 function load(): ConfigType {
   const userNames = new Set<string>(Object.values(UserNames));
-  const file = fs.readFileSync('./assets/config.json', { encoding: 'utf-8' });
+  const file = fs.readFileSync("./assets/config.json", { encoding: "utf-8" });
 
   // NOTE:
   // config file must contain a valid JSON with the following schema:
@@ -44,12 +44,14 @@ function load(): ConfigType {
 
 function validateUserPasswords(obj: any, userNames: Set<string>): void {
   if (
-    typeof obj !== 'object' ||
+    typeof obj !== "object" ||
     obj === null ||
-    typeof obj.baseURL !== 'string' ||
-    typeof obj.userPasswords !== 'object' ||
+    typeof obj.baseURL !== "string" ||
+    typeof obj.userPasswords !== "object" ||
     obj.userPasswords === null ||
-    Object.keys(obj.userPasswords).some(k => !userNames.has(k) || typeof obj.userPasswords[k] !== 'string')
+    Object.keys(obj.userPasswords).some(
+      (k) => !userNames.has(k) || typeof obj.userPasswords[k] !== "string",
+    )
   ) {
     throw new Error("'assets/config.json' file has invalid contents");
   }
